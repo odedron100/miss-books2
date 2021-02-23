@@ -8,7 +8,6 @@ export default {
     <section class="add-book">
         <h1>Add book</h1>
           <input class="add-book-input" v-model="bookForSearch" v-on:keyup.13="onAsk"></input>
-          <button type="submit">search</button>
     </section>
     <section v-for="book in books" :key="book.id">
       <apiBooks :book="book" @add="addBook"/>

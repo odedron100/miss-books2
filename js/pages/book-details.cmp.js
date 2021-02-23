@@ -20,11 +20,11 @@ export default {
               <p>{{book.description}}</p></div>
               <div><h3>Categories: </h3><p>{{categories}}</p></div>
               <div><h3>Price:</h3><p :class="{ 'high-price': isHighPrice, 'low-price': isLowPrice }">{{price}}</p> <span v-if="book.listPrice.isOnSale">ON SALE!</span></div>
-          </div>
-      </div>
-      <div class="paging">
-          <router-link :to="prevBookLink">Prev Book</router-link>
-          <router-link :to="nextBookLink">Next Book</router-link>
+            </div>
+            <div class="paging">
+                <router-link class="prevBookLink" :to="prevBookLink">Prev Book</router-link>
+                <router-link class="nextBookLink" :to="nextBookLink">Next Book</router-link>
+            </div>
       </div>
     </div>
     `,
