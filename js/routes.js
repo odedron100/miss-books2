@@ -5,6 +5,7 @@ import bookDetails from './pages/book-details.cmp.js'
 import about from './pages/about.cmp.js'
 import bookReview from './pages/book-review.cmp.js'
 import reviewDetails from './pages/review-details.cmp.js'
+import addBook from './pages/add-book.cmp.js'
 
 
 const routes = [
@@ -31,6 +32,10 @@ const routes = [
   {
     path: '/book/:bookId/details',
     component: reviewDetails
+  },
+  {
+    path: '/addBook',
+    component: addBook
   }
 ]
 

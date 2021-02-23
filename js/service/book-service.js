@@ -11,7 +11,11 @@ export const bookService = {
   remove,
   save,
   getEmptybook,
-  getById
+  getById,
+  getNextBookId,
+  getPrevBookId,
+  getBookFromApi,
+  addGoogleBook
 }
 
 function query() {
@@ -42,7 +46,7 @@ function _createbooks() {
   let books = utilService.loadFromStorage(BOOKS_KEY)
   if (!books || !books.length) {
     books = utilService.getBooks();
-    storageService.postMany(BOOKS_KEY, books)
+    utilService.saveToStorage(BOOKS_KEY, books)
     books = utilService.loadFromStorage(BOOKS_KEY);
     //   books.push(_createbook('Audu Mea', 300));
     //   books.push(_createbook('Fiak Ibasa', 120));
@@ -52,6 +56,60 @@ function _createbooks() {
     // }
     return books;
   }
+}
+
+function getNextBookId(bookId) {
+  let books = utilService.loadFromStorage(BOOKS_KEY);
+  var foundBook = books.find(book => bookId === book.id)
+  const bookIdx = books.findIndex(book => foundBook.id === book.id)
+  const nextBookId = books[bookIdx + 1].id
+  return nextBookId;
+}
+
+function getPrevBookId(bookId) {
+  let books = utilService.loadFromStorage(BOOKS_KEY);
+  var foundBook = books.find(book => bookId === book.id)
+  const bookIdx = books.findIndex(book => foundBook.id === book.id)
+  const prevBookId = books[bookIdx - 1].id
+  return prevBookId;
+}
+
+function getBookFromApi(bookSearch) {
+  let booksFromApi = utilService.loadFromStorage(BOOKS_KEY) || {};
+  if (booksFromApi[bookSearch]) {
+    return Promise.resolve(booksFromApi[bookSearch]);
+  }
+  return fetch(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${bookSearch}`)
+    .then(Response => Response.json())
+    .then(data => {
+      booksFromApi[bookSearch] = data;
+      utilService.saveToStorage(BOOKS_KEY, booksFromApi);
+      return data;
+    });
+}
+
+function addGoogleBook(googleBook) {
+  let books = utilService.loadFromStorage(BOOKS_KEY);
+  let book = getEmptyBook(googleBook)
+  books.push(book);
+  utilService.saveToStorage(BOOKS_KEY, books)
+}
+
+function getEmptyBook(googleBook) {
+  return {
+    id: googleBook.id,
+    title: googleBook.volumeInfo.title,
+    // subtitle: googleBook.volumeInfo.subtitle,
+    authors: googleBook.volumeInfo.authors,
+    publishedDate: googleBook.volumeInfo.publishedDate,
+    description: googleBook.volumeInfo.description,
+    // pageCount: googleBook.volumeInfo.industryIdentifiers,
+    // categories: googleBook.volumeInfo.industryIdentifiers['categories'],
+    thumbnail: googleBook.volumeInfo.imageLinks.thumbnail,
+    // language: googleBook.volumeInfo.industryIdentifiers['language'],
+    listPrice: { amount: 102, currencyCode: 'ILS', isOnSale: false },
+  }
+}
 
   // function _createbook(vendor, maxSpeed = 250) {
   //   const book = {
@@ -60,4 +118,4 @@ function _createbooks() {
   //     maxSpeed,
   //   }
   //   return book;
-}
+// }

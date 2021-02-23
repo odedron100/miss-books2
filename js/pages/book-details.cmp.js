@@ -22,13 +22,19 @@ export default {
               <div><h3>Price:</h3><p :class="{ 'high-price': isHighPrice, 'low-price': isLowPrice }">{{price}}</p> <span v-if="book.listPrice.isOnSale">ON SALE!</span></div>
           </div>
       </div>
+      <div class="paging">
+          <router-link :to="prevBookLink">Prev Book</router-link>
+          <router-link :to="nextBookLink">Next Book</router-link>
+      </div>
     </div>
     `,
   data() {
     return {
       isHighPrice: false,
       isLowPrice: false,
-      book: null
+      book: null,
+      nextBookId: null,
+      prevBookId: null
     }
   },
   computed: {
@@ -78,6 +84,12 @@ export default {
     price() {
       return this.book.listPrice.amount + ' ' + this.book.listPrice.currencyCode;
     },
+    nextBookLink() {
+      return '/book/' + this.nextBookId;
+    },
+    prevBookLink() {
+      return '/book/' + this.prevBookId;
+    },
   },
   methods: {
     // highOrLowPrice() {
@@ -91,12 +103,26 @@ export default {
     //     console.log('nothing');
     //     return;
     //   }
-    // }
+    // },
+    loadBook() {
+      const id = this.$route.params.bookId;
+      bookService.getById(id)
+        .then(book => {
+          this.book = book;
+          this.prevBookId = bookService.getPrevBookId(this.book.id)
+          this.nextBookId = bookService.getNextBookId(this.book.id)
+        })
+    },
   },
   created() {
     const id = this.$route.params.bookId
     bookService.getById(id)
       .then(book => this.book = book)
-    // .then(highOrLowPrice())
+    this.loadBook();
+  },
+  watch: {
+    '$route.params.bookId'(id) {
+      this.loadBook();
+    }
   }
 }
