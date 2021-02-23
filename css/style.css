@@ -1,0 +1,284 @@
+*{
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* HEADER */
+.app-header{
+  display: flex;
+  font-size: 30px;
+  text-align: center;
+  background: lightblue;
+  justify-content: space-between;
+}
+
+.nav-list{
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.nav-list a{
+  text-decoration: none;
+  color: black;
+  font-size: 26px;
+}
+
+.nav-list a.router-link-exact-active {
+    color: white;
+    font-size: 32px;
+}
+
+/* APP */
+.book-app{
+  width: 100%;
+  min-height: 90vh;
+  background-color: lightblue;
+}
+
+/* BOOK LIST */
+.book-list{
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  justify-content: center;
+}
+
+/* BOOK PREVIEW */
+.book-container{
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 200px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 18px;
+  border: 1px solid black;
+  background: lavender;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.book-preview{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  color: #131212;
+  text-decoration: none;
+}
+
+.book-preview span{
+  font-weight: bold;
+}
+
+/* BOOK DETAILS */
+.high-price{
+  color: red;
+}
+.low-price{
+  color:greenyellow
+}
+
+.modal-details-container{
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.509);
+}
+
+.book-details{
+  display: flex;
+  width: 80%;
+  height: 80%;
+  flex-wrap: wrap;
+  margin: auto;
+  background-color: white;
+}
+
+.details-header{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-review-button{
+  font-size: 24px;
+  margin:5px;
+  color:black;
+  text-decoration: none;
+}
+
+.back-button{
+  font-size: 24px;
+  margin:5px;
+  color:black;
+  text-decoration: none;
+}
+
+.info{
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.info >* {
+  width: 50%;
+}
+
+.info img{
+  width: 100px;
+  margin-left: 145px;
+}
+
+.close-modal-button{
+  position: absolute;
+  cursor: pointer;
+}
+
+/* BOOK FILTER */
+.book-filter{
+  width: 85%;
+  margin: auto;
+  height: 50px;
+}
+
+.search-input {
+  height: 65%;
+  text-align: center;
+  width: 30%;
+  margin: 5px;
+}
+
+/* ABOUT */
+.about{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  margin: auto;
+}
+
+.about h1{
+  padding: 30px;
+}
+
+.imgs-store{
+  display: flex;
+  justify-content: space-around;
+}
+
+.imgs-store img{
+  width: 50%;
+  padding: 7px;
+}
+
+/* REVIEW */
+.form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-main{
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  align-items: flex-start;
+  justify-content: space-around;
+  border: 1px solid #00000042;
+  padding: 50px 30px 30px 30px;
+}
+
+.form-main .item{
+  display: flex;
+  margin-bottom: 30px;
+  justify-content: space-between;
+  line-height: 35px;
+}
+
+.stars{
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.111);
+  cursor: pointer;
+}
+
+.gold-star{
+  display: none;
+}
+
+.draw-star{
+  display: inline-block;
+}
+
+.remove-star{
+  display: none;
+}
+
+.rate-book-div{
+  display: flex;
+}
+
+.form-container .form-main label{
+  float: left;
+  margin-right: 20px;
+}
+
+.submit-button{
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  transition: transform 0.3s;
+  background-color: rgb(224, 230, 230);
+}
+
+.submit-button:hover{
+  cursor: pointer;
+  transform: scale(1.08);
+  background-color: rgb(211, 220, 220);
+}
+
+.submit-button:focus{
+  outline: none;
+}
+
+/* REVIEW DETAILS  */
+.review-details-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 10px 10px;
+}
+
+.user-review{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 2fr 2fr;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 20px;
+  margin: 10px;
+  align-items: center;
+  text-align: center;
+}
+
+.user-review h1{
+  grid-column: 1/3;
+}
+
+.user-review .txt{
+  grid-column: 1/3;
+}
